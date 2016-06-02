@@ -1,3 +1,5 @@
+
+
 var articles = [];
 
 function Article (opts) {
@@ -14,6 +16,12 @@ Article.prototype.toHtml = function() {
 
   $newArticle.attr('data-category', this.category);
 
+  $newArticle.find('header > h1').text(this.title);
+
+  $newArticle.find('header > div > address').html('<a href="' + this.authorURL + '">' + this.author + '</a>');
+
+  $newArticle.find('.article-body').html(this.body);
+
   // TODO: Use jQuery to fill in the template with properties
   // from this particular Article instance. We need to fill in:
   // the author name and url, the article title and body, and the
@@ -27,19 +35,27 @@ Article.prototype.toHtml = function() {
 
   $newArticle.append('<hr>');
 
-  // TODO: This cloned article is no longer a template, so we should remove that class...
+  $newArticle.removeClass('template');
 
   return $newArticle;
 }
 
-rawData.sort(function(a,b) {
-  return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
-});
+var loadData = function() {
 
-rawData.forEach(function(ele) {
-  articles.push(new Article(ele));
-})
+  rawData.sort(function(a,b) {
+    return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
+    alert("hello test");
+  });
+  rawData.forEach(function(ele) {
+    articles.push(new Article(ele))
+  });
 
-articles.forEach(function(a){
-  $('#articles').append(a.toHtml())
+  articles.forEach(function(a){
+    $('#articles').append(a.toHtml())
+  });
+}
+
+$(document).ready(function(){
+  loadData();
+  // alert("load test");
 });
