@@ -36,7 +36,7 @@ articleView.handleAuthorFilter = function() {
       var $choice = $(this).val();
       $('article').hide();
       $('article[data-author="'+ $choice +'"]').fadeIn(1000);
-      $('#author-filter option:eq(0)').text('show all');
+      $('#author-filter option:eq(0)').text('-- Show all --');
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
@@ -44,8 +44,10 @@ articleView.handleAuthorFilter = function() {
       //DONE
       $('article').fadeIn(1000);
       $('#author-filter option:eq(0)').text('-- Filter by Authors --');
+      $('#category-filter option:eq(0)').text('-- Filter by Category --');
     }
     $('#category-filter').val('');
+    $('article.template').hide();
   });
 };
 
@@ -54,6 +56,22 @@ articleView.handleCategoryFilter = function() {
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
+  //       DONE
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      var $choice = $(this).val();
+      $('article').hide();
+      $('article[data-category="'+ $choice +'"]').fadeIn(1000);
+      $('#category-filter option:eq(0)').text('-- Show all --');
+
+    } else {
+      $('article').fadeIn(1000);
+      $('#author-filter option:eq(0)').text('-- Filter by Authors --');
+      $('#category-filter option:eq(0)').text('-- Filter by Category --');
+    }
+    $('#author-filter').val('');
+    $('article.template').hide();
+  });
 
 };
 
@@ -63,7 +81,14 @@ articleView.handleMainNav = function() {
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click','.tab:eq(0)', function(){
+    $('#articles').fadeIn(1000);
+    $('#about').hide();
+  });
+  $('.main-nav').on('click','.tab:eq(1)', function(){
+    $('#about').fadeIn(1000);
+    $('#articles').hide();
+  });
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
@@ -84,4 +109,6 @@ articleView.setTeasers = function() {
 $().ready(function(){
   articleView.handleAuthorFilter();
   articleView.populateFilters();
+  articleView.handleCategoryFilter();
+  articleView.handleMainNav();
 });
