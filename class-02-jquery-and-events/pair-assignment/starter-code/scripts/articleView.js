@@ -111,7 +111,7 @@ articleView.setTeasers = function(e) {
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
-// $();
+// DONE.
 $().ready(function(){
   articleView.handleAuthorFilter();
   articleView.populateFilters();
