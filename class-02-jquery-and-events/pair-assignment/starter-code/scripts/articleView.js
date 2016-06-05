@@ -36,13 +36,14 @@ articleView.handleAuthorFilter = function() {
       var $choice = $(this).val();
       $('article').hide();
       $('article[data-author="'+ $choice +'"]').fadeIn(1000);
-
+      $('#author-filter option:eq(0)').text('show all');
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
+      //DONE
       $('article').fadeIn(1000);
-
+      $('#author-filter option:eq(0)').text('-- Filter by Authors --');
     }
     $('#category-filter').val('');
   });
