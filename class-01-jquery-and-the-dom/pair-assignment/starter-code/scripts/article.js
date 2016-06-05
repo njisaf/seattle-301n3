@@ -49,7 +49,7 @@ var loadData = function() {
 
   rawData.sort(function(a,b) {
     return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
-    alert("hello test");
+    // alert("hello test");
   });
   rawData.forEach(function(ele) {
     articles.push(new Article(ele))
