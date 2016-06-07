@@ -24,7 +24,7 @@
 }
 
 .main-nav ul {
-  /*display: none;*/
+  display: none;
   padding: 0;
   list-style: none;
   clear: both;
@@ -64,6 +64,12 @@
 @media only screen and (min-width: 640px) {
   #hamburger {
     display: none;
+  }
+  .main-nav ul {
+    display: block;
+  }
+  .main-nav li {
+    padding-right: 7%;
   }
 }
 
