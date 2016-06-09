@@ -9,7 +9,17 @@ function Article (opts) {
   this.publishedOn = opts.publishedOn;
 }
 
-Article.prototype.toHtml = function() {
+  Article.prototype.toHtml = function() {
+  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+  this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
+  // var context = {
+  //   article: this
+  // };
+  var blogTemplate = $("#blog-template").html();
+  var renderTemplate = Handlebars.compile(blogTemplate);
+  return renderTemplate(this);
+  // var finalTemplate = renderTemplate(context);
+  // $(".blog-position").html(finalTemplate);
   // TODO: Use handlebars to render your articles.
   //       - Get your template from the DOM.
   //       - Now "compile" your template with Handlebars.
@@ -18,9 +28,10 @@ Article.prototype.toHtml = function() {
   //   Since your template can't hold any JS logic, we need to execute the logic here.
   //   The result is added to the object as a new property, which can then be referenced by key in the template.
   //   For example, you might want to display how old a post is, or say "(draft)" if it has no publication date:
-  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
-  this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
 
+  // Handlebars.registerHelper("date-maker", function() {
+  // return(this.publishStatus);
+// });
   // TODO: Use the function that Handlebars gave you to return your filled-in html template for THIS article.
 };
 
@@ -34,4 +45,5 @@ rawData.forEach(function(ele) {
 
 articles.forEach(function(a){
   $('#articles').append(a.toHtml())
+  // console.log(a.toHtml());
 });
