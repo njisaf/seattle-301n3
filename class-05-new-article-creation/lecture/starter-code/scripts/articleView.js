@@ -82,7 +82,7 @@ articleView.create = function() {
   // TODO: Set up a var to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
   var article;
-  $('#articles').empty();
+  $('#article-preview').empty();
   // TODO: Instantiate an article based on what's in the form fields:
   var obj = {
     title: $('#article-title').val(),
@@ -90,12 +90,12 @@ articleView.create = function() {
     authorUrl: $('#article-authorUrl').val(),
     category: $('#article-category').val(),
     body: $('#article-body').val(),
-    publishedOn: $('#article-published').val()
+    publishedOn: $('#article-published:checked').length ? new Date() : null
   };
   article = new Article(obj);
   // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
 
-  $('#articles').append(article.toHtml()); //when we get values from body input tag. that string is markdown syntax. now we render it as html
+  $('#article-preview').append(article.toHtml()); //when we get values from body input tag. that string is markdown syntax. now we render it as html
 
   // TODO: Activate the highlighting of any code blocks (ex:
   $('pre code').each(function(i, block) {
@@ -103,6 +103,8 @@ articleView.create = function() {
   })
 
   // TODO: Export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  $('#article-export').show();
+  $('#article-json').val(JSON.stringify(article) + ", ");
 };
 
 
