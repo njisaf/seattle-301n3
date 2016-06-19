@@ -14,8 +14,8 @@ hr {
 }
 
 img {
-  width: inherit;
-  height: inherit;
+  max-width: 100%;
+
 }
 
 /*TEXT STYLES
